@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Comment } from 'src/app/models/comment';
 import { CommentService } from 'src/app/services/comment.service';
 import { Subscription } from 'rxjs';
@@ -9,11 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent implements OnInit , OnDestroy{
 
   posteId : number;
 
-  private getPostsSubscriber: Subscription;
+  private getCommentSubscriber: Subscription;
   public comments: Comment[];
   constructor(
     private commentService: CommentService, 
@@ -27,12 +27,19 @@ export class CommentComponent implements OnInit {
   }
 
   getAllComments(postId: number): void {
-    this.getPostsSubscriber = this.commentService
+    this.getCommentSubscriber = this.commentService
       .getComments(postId)
       .subscribe(comments => {
         this.comments = comments;
       });
   }
 
+  goToListPost(){
+    this.router.navigate(['/']);
+  }
+
+  ngOnDestroy() {
+    this.getCommentSubscriber.unsubscribe();
+  }
 
 }

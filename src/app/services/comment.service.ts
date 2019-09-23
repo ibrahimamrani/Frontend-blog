@@ -14,17 +14,17 @@ const httpOptions = {
 })
 export class CommentService {
 
-  url = `http://localhost:8080/posts`;
+  url = 'http://localhost:8080/posts';
 
   constructor(private http: HttpClient) {}
 
   getComments(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url + `/` + postId + `/comments`, httpOptions);
+    return this.http.get<Comment[]>(this.url + '/' + postId + '/comments', httpOptions);
   }
 
   createComment(postId: number, comment: Comment): Observable<Number> {
     return this.http.post<Number>(
-      this.url + `/` + postId + `/comments`,
+      this.url + '/' + postId + '/comments',
       comment,
       httpOptions
     );
@@ -32,14 +32,14 @@ export class CommentService {
     
   updateComment(commentId: number, content: String): Observable<void> {
     return this.http.put<void>(
-      this.url + `/posts/comments/` + commentId + `/` + content ,
+      this.url + '/posts/comments/' + commentId + '/' + content ,
       httpOptions
     );
   }
 
   deleteComment(commentId: number): Observable<void> {
     return this.http.delete<void>(
-      this.url + `/posts/comments/{id}`,
+      this.url + '/posts/comments/{id}',
       httpOptions
     );
   }

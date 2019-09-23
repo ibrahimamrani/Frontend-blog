@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit, OnDestroy{
  
   private getPostsSubscriber: Subscription;
   public posts: Post[];
@@ -29,6 +29,10 @@ export class PostComponent implements OnInit{
 
   goToCommentPage(posteId: number){
     this.router.navigate(['/comment/' + posteId]);
+  }
+
+  ngOnDestroy() {
+    this.getPostsSubscriber.unsubscribe();
   }
 
 }

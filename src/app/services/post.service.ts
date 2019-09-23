@@ -14,7 +14,7 @@ const httpOptions = {
 })
 export class PostService {
 
-  url = `http://localhost:8080/posts`;
+  url = 'http://localhost:8080/posts';
 
   constructor(private http: HttpClient) {}
 

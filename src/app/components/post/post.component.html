@@ -1,22 +1,19 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Titre</th>
-      <th scope="col">Contenu</th>
-      <th scope="col">Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let post of posts">
-      <th scope="row">{{post.id}} </th>
-      <td>{{post.title}}</td>
-      <td>{{post.content}}</td>
-      <td>{{post.creationDate}}</td>
-      <td>
-        <button type="button" (click)="goToCommentPage(post.id)" class="btn btn-primary">Affiche commentaire</button>
-      </td>
-    </tr>
-   
-  </tbody>
-</table>
+<h1 class="my-4">Liste des posts
+  <small>listé a partir du backend api.</small>
+</h1>
+
+<!-- Blog Post -->
+<div style="height: auto; overflow-y: auto">
+  <div class="card mb-4" *ngFor="let post of posts">
+    <div class="card-body">
+      <h2 class="card-title">{{post.title}}</h2>
+      <p class="card-text">
+        {{post.content}}
+      </p>
+      <button (click)="goToCommentPage(post.id)" class="btn btn-primary">Voir commentaires </button>
+    </div>
+    <div class="card-footer text-muted">
+      Posté le {{post.creationDate | date}}
+    </div>
+  </div>
+</div>
