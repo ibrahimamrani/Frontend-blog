@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Post } from '../models/post';
+import { Comment } from '../models/comment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -18,13 +18,13 @@ export class CommentService {
 
   constructor(private http: HttpClient) {}
 
-  getComment(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.url + `/{postId}`, httpOptions);
+  getComments(postId: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(this.url + `/` + postId + `/comments`, httpOptions);
   }
 
   createComment(postId: number, comment: Comment): Observable<Number> {
     return this.http.post<Number>(
-      this.url +`/{postId}/comments`,
+      this.url + `/` + postId + `/comments`,
       comment,
       httpOptions
     );
@@ -32,7 +32,7 @@ export class CommentService {
     
   updateComment(commentId: number, content: String): Observable<void> {
     return this.http.put<void>(
-      this.url + `/posts/comments/{commentId}/{content}`,
+      this.url + `/posts/comments/` + commentId + `/` + content ,
       httpOptions
     );
   }

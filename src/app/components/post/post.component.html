@@ -9,10 +9,13 @@
   </thead>
   <tbody>
     <tr *ngFor="let post of posts">
-      <th scope="row">{{post.id}}</th>
+      <th scope="row">{{post.id}} </th>
       <td>{{post.title}}</td>
       <td>{{post.content}}</td>
       <td>{{post.creationDate}}</td>
+      <td>
+        <button type="button" (click)="goToCommentPage(post.id)" class="btn btn-primary">Affiche commentaire</button>
+      </td>
     </tr>
    
   </tbody>

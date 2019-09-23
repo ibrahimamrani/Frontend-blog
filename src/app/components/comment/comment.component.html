@@ -1,0 +1,19 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Autheur</th>
+        <th scope="col">Contenu</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let comment of comments">
+        <th scope="row">{{comment.id}}</th>
+        <td>{{comment.author}}</td>
+        <td>{{comment.content}}</td>
+        <td>{{comment.creationDate}}</td>
+      </tr>
+     
+    </tbody>
+  </table>
