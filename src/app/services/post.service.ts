@@ -14,10 +14,12 @@ const httpOptions = {
 })
 export class PostService {
 
+  url = `http://localhost:8080/posts`;
+
   constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`http://localhost:8080/posts`, httpOptions);
+    return this.http.get<Post[]>(this.url, httpOptions);
   }
 
   
