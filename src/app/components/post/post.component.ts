@@ -47,14 +47,23 @@ export class PostComponent implements OnInit, OnDestroy {
   getAllComments(postId: number): void {
     this.displayFields = false;
     this.displayContentField = false;
+    this.comment.postId = postId;
     this.getCommentSubscriber = this.postService
       .getComments(postId)
       .subscribe(comments => {
         this.comments = comments.map(comment => {
-          this.comment.postId = postId;
           return comment;
         });
       });
+  }
+
+  isSelectedPost(posteId: number): string{
+
+    if(this.comment.postId === posteId){
+      return "card-title-select";
+    }else{
+      return "card-title";
+    }
   }
 
   createComment(): void {
