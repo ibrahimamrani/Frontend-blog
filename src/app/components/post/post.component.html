@@ -24,16 +24,16 @@
   <div id="comment" style="height: auto; overflow-y: auto;">
   
     <table width="100%">
-      <tr class="list-group-item" *ngFor="let comment of comments">
+      <tr class="list-group-item" *ngFor="let comm of comments">
         <td width="70%" >
-          {{comment.content}}
+          {{comm.content}}
           <span class="text-right">
-            le <i class="text-info">{{comment.creationDate | date }}</i> par {{comment.author}}
+            le <i class="text-info">{{comm.creationDate | date }}</i> par {{comm.author}}
           </span>
         </td>
         <td width="30%">
           <button class="btn btn-primary btn-sm">Modifier</button>&nbsp;
-          <button class="btn btn-primary btn-sm">Supprimer</button>
+          <button (click)="deleteComment(comm.id, comment.postId)" class="btn btn-primary btn-sm">Supprimer</button>
         </td>
       </tr>
     </table>

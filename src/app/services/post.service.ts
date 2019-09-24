@@ -37,14 +37,14 @@ export class PostService {
     
   updateComment(commentId: number, content: String): Observable<void> {
     return this.http.put<void>(
-      this.url + '/posts/comments/' + commentId + '/' + content ,
+      this.url + '/comments/' + commentId + '/' + content ,
       httpOptions
     );
   }
 
   deleteComment(commentId: number): Observable<void> {
     return this.http.delete<void>(
-      this.url + '/posts/comments/{id}',
+      this.url + '/comments/' + commentId,
       httpOptions
     );
   }

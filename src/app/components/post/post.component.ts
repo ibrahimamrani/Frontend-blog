@@ -75,4 +75,14 @@ export class PostComponent implements OnInit, OnDestroy {
     this.comment.content = null;
     this.displayFields = true;
   }
+
+  deleteComment(commentId: number, posteId: number): void {
+    this.getCommentSubscriber = this.postService
+          .deleteComment(commentId)
+          .subscribe(id => {
+            this.displayFields = false;
+            this.getAllComments(this.comment.postId);
+          });
+  }
+
 }
