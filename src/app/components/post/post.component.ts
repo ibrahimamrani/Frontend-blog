@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
-import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/models/comment';
 
 @Component({
@@ -15,9 +14,11 @@ export class PostComponent implements OnInit, OnDestroy {
   private getPostsSubscriber: Subscription;
   private getCommentSubscriber: Subscription;
   comments: Comment[] = new Array<Comment>();
+  comment: Comment = new Comment();
   public posts: Post[];
-  postData: { displayFields: boolean, postId: number } = { displayFields: false, postId: null };
-  constructor(private postService: PostService, private commentService: CommentService) { }
+  
+  displayFields: boolean ;
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
     this.getPosts();
@@ -40,9 +41,10 @@ export class PostComponent implements OnInit, OnDestroy {
       this.getCommentSubscriber.unsubscribe();
     }
   }
+
   getAllComments(postId: number): void {
-    this.postData.displayFields = false;
-    this.getCommentSubscriber = this.commentService
+    this.displayFields = false;
+    this.getCommentSubscriber = this.postService
       .getComments(postId)
       .subscribe(comments => {
         this.comments = comments.map(comment => {
@@ -52,9 +54,25 @@ export class PostComponent implements OnInit, OnDestroy {
       });
   }
 
+  createComment(): void {
+    if(this.comment.author != null && this.comment.author != '' && this.comment.content != null && this.comment.content != '' ){
+        this.getCommentSubscriber = this.postService
+          .createComment(this.comment)
+          .subscribe(id => {
+            this.displayFields = false;
+            this.getAllComments(this.comment.postId);
+          });
+    }else{
+      alert('Autheur et contenu obligatoir !!');
+    }
+    
+  }
+
   setDisplayFields(postId: number): void {
-    //this.comments = [];
-    this.postData.postId = postId;
-    this.postData.displayFields = true;
+    this.comments = [];
+    this.comment.postId = postId;
+    this.comment.author = null;
+    this.comment.content = null;
+    this.displayFields = true;
   }
 }

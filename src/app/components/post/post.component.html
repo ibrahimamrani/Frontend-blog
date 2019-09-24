@@ -21,6 +21,28 @@
 </div>
 <div class="col-md-6">
   <br><br><br><br>
-  <app-comment [comments]="comments" (createComment)="createComment($event)" [postData]="postData">
-  </app-comment>
+  <div id="comment" style="height: auto; overflow-y: auto;">
+  
+    <table width="100%">
+      <tr class="list-group-item" *ngFor="let comment of comments">
+        <td width="70%" >
+          {{comment.content}}
+          <span class="text-right">
+            le <i class="text-info">{{comment.creationDate | date }}</i> par {{comment.author}}
+          </span>
+        </td>
+        <td width="30%">
+          <button class="btn btn-primary btn-sm">Modifier</button>&nbsp;
+          <button class="btn btn-primary btn-sm">Supprimer</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div style="height: auto; overflow-y: auto;" *ngIf="displayFields">
+      <input type="text" [(ngModel)]="comment.author" placeholder="Autheur" />
+      <br><br>
+      <textarea rows="4" cols="70" [(ngModel)]="comment.content" placeholder="Content"></textarea>
+      <br>
+      <button (click)="createComment()" class="btn btn-primary btn-sm">Submit</button>
+  </div>
 </div>

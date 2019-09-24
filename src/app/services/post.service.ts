@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Comment } from '../models/comment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,9 +27,9 @@ export class PostService {
     return this.http.get<Comment[]>(this.url + '/' + postId + '/comments', httpOptions);
   }
 
-  createComment(postId: number, comment: Comment): Observable<Number> {
+  createComment(comment: Comment): Observable<Number> {
     return this.http.post<Number>(
-      this.url + '/' + postId + '/comments',
+      this.url + '/' + comment.postId + '/comments',
       comment,
       httpOptions
     );
