@@ -32,7 +32,7 @@
           </span>
         </td>
         <td width="30%">
-          <button class="btn btn-primary btn-sm">Modifier</button>&nbsp;
+          <button (click)="setDisplayContentField(comm.content, comm.id, comment.postId)" class="btn btn-primary btn-sm">Modifier</button>&nbsp;
           <button (click)="deleteComment(comm.id, comment.postId)" class="btn btn-primary btn-sm">Supprimer</button>
         </td>
       </tr>
@@ -43,6 +43,11 @@
       <br><br>
       <textarea rows="4" cols="70" [(ngModel)]="comment.content" placeholder="Content"></textarea>
       <br>
-      <button (click)="createComment()" class="btn btn-primary btn-sm">Submit</button>
+      <button (click)="createComment()" class="btn btn-primary btn-sm">Ajouetr</button>
+  </div>
+  <div style="height: auto; overflow-y: auto;" *ngIf="displayContentField">
+    <br>
+    <textarea id="contentID" rows="4" cols="60" [(ngModel)]="comment.content" placeholder="Content"></textarea>&nbsp;
+    <button (click)="updateComment()" class="btn btn-primary btn-sm">Valider</button>
   </div>
 </div>

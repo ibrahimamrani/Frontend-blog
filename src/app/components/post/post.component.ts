@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post';
 import { PostService } from 'src/app/services/post.service';
 import { Comment } from 'src/app/models/comment';
+import { post } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-post',
@@ -18,6 +19,7 @@ export class PostComponent implements OnInit, OnDestroy {
   public posts: Post[];
   
   displayFields: boolean ;
+  displayContentField: boolean ;
   constructor(private postService: PostService) { }
 
   ngOnInit() {
@@ -44,11 +46,12 @@ export class PostComponent implements OnInit, OnDestroy {
 
   getAllComments(postId: number): void {
     this.displayFields = false;
+    this.displayContentField = false;
     this.getCommentSubscriber = this.postService
       .getComments(postId)
       .subscribe(comments => {
         this.comments = comments.map(comment => {
-          comment.postId = postId;
+          this.comment.postId = postId;
           return comment;
         });
       });
@@ -68,6 +71,20 @@ export class PostComponent implements OnInit, OnDestroy {
     
   }
 
+  updateComment(): void {
+    if(this.comment.content != null && this.comment.content != '' ){
+      this.getCommentSubscriber = this.postService
+          .updateComment(this.comment)
+          .subscribe(id => {
+            this.displayFields = false;
+            this.getAllComments(this.comment.postId);
+          });
+    }else{
+      alert('Contenu obligatoir !!');
+    }
+    
+  }
+
   setDisplayFields(postId: number): void {
     this.comments = [];
     this.comment.postId = postId;
@@ -81,8 +98,16 @@ export class PostComponent implements OnInit, OnDestroy {
           .deleteComment(commentId)
           .subscribe(id => {
             this.displayFields = false;
+            this.displayContentField = false;
             this.getAllComments(this.comment.postId);
           });
+  }
+
+  setDisplayContentField(commentContent: string, commentId: number, postId: number): void{
+    this.displayContentField = true;
+    this.comment.content = commentContent;
+    this.comment.id = commentId;
+    this.comment.postId = postId;
   }
 
 }

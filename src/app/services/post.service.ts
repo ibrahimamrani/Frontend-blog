@@ -35,9 +35,9 @@ export class PostService {
     );
   }
     
-  updateComment(commentId: number, content: String): Observable<void> {
+  updateComment(comment: Comment): Observable<void> {
     return this.http.put<void>(
-      this.url + '/comments/' + commentId + '/' + content ,
+      this.url + '/comments/' + comment.id + '/' + comment.content ,
       httpOptions
     );
   }
