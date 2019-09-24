@@ -16,6 +16,7 @@
           &nbsp;
           <button (click)="setDisplayFields(post.id)" class="btn btn-primary btn-sm">Ajouter commentaire </button>
       </div>
+      <hr/>
     </div>
   </div>
 </div>
@@ -26,12 +27,12 @@
     <table width="100%">
       <tr class="list-group-item" *ngFor="let comm of comments">
         <td width="70%" >
-          {{comm.content}}
-          <span class="text-right">
-            le <i class="text-info">{{comm.creationDate | date }}</i> par {{comm.author}}
+          <span >{{comm.content}}</span><br>
+          <span >
+            Le <i class="text-info">{{comm.creationDate | date }}</i> par <b>{{comm.author}}</b>
           </span>
         </td>
-        <td width="30%">
+        <td width="30%" *ngIf="displayCommentButton" >
           <button (click)="setDisplayContentField(comm.content, comm.id, comment.postId)" class="btn btn-primary btn-sm">Modifier</button>&nbsp;
           <button (click)="deleteComment(comm.id, comment.postId)" class="btn btn-primary btn-sm">Supprimer</button>
         </td>
@@ -39,11 +40,11 @@
     </table>
   </div>
   <div style="height: auto; overflow-y: auto;" *ngIf="displayFields">
-      <input type="text" [(ngModel)]="comment.author" placeholder="Autheur" />
+      <input type="text" [(ngModel)]="comment.author" placeholder="Auteur" />
       <br><br>
-      <textarea rows="4" cols="70" [(ngModel)]="comment.content" placeholder="Content"></textarea>
+      <textarea rows="4" cols="60" [(ngModel)]="comment.content" placeholder="Content"></textarea>
       <br>
-      <button (click)="createComment()" class="btn btn-primary btn-sm">Ajouetr</button>
+      <button (click)="createComment()" class="btn btn-primary btn-sm">Ajouter</button>
   </div>
   <div style="height: auto; overflow-y: auto;" *ngIf="displayContentField">
     <br>

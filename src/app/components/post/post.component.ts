@@ -19,6 +19,7 @@ export class PostComponent implements OnInit, OnDestroy {
   public posts: Post[];
   
   displayFields: boolean ;
+  displayCommentButton: boolean ;
   displayContentField: boolean ;
   constructor(private postService: PostService) { }
 
@@ -47,6 +48,7 @@ export class PostComponent implements OnInit, OnDestroy {
   getAllComments(postId: number): void {
     this.displayFields = false;
     this.displayContentField = false;
+    this.displayCommentButton = true;
     this.comment.postId = postId;
     this.getCommentSubscriber = this.postService
       .getComments(postId)
@@ -75,7 +77,7 @@ export class PostComponent implements OnInit, OnDestroy {
             this.getAllComments(this.comment.postId);
           });
     }else{
-      alert('Autheur et contenu obligatoir !!');
+      alert('Auteur et contenu obligatoire !!');
     }
     
   }
@@ -89,7 +91,7 @@ export class PostComponent implements OnInit, OnDestroy {
             this.getAllComments(this.comment.postId);
           });
     }else{
-      alert('Contenu obligatoir !!');
+      alert('Contenu obligatoire !!');
     }
     
   }
@@ -114,6 +116,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   setDisplayContentField(commentContent: string, commentId: number, postId: number): void{
     this.displayContentField = true;
+    this.displayCommentButton = false;
     this.comment.content = commentContent;
     this.comment.id = commentId;
     this.comment.postId = postId;
