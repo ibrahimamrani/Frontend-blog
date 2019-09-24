@@ -22,15 +22,15 @@ export class CommentService {
     return this.http.get<Comment[]>(this.url + '/' + postId + '/comments', httpOptions);
   }
 
-  createComment(postId: number, comment: Comment): Observable<Number> {
-    return this.http.post<Number>(
+  createComment(postId: number, comment: Comment): Observable<number> {
+    return this.http.post<number>(
       this.url + '/' + postId + '/comments',
       comment,
       httpOptions
     );
   }
     
-  updateComment(commentId: number, content: String): Observable<void> {
+  updateComment(commentId: number, content: string): Observable<void> {
     return this.http.put<void>(
       this.url + '/posts/comments/' + commentId + '/' + content ,
       httpOptions

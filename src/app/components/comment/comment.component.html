@@ -1,14 +1,17 @@
-
-
-  <div id="comment" style="height: auto; overflow-y: auto;">
-      <ul class="list-group" style="position: relative; ">
-        <li class="list-group-item" *ngFor="let comment of comments">
-          {{comment.content}}
-          <span class="text-right">
-          le <i class="text-info">{{comment.creationDate | date}}</i> par {{comment.author}}
-        </span>
-        </li>
-      </ul>
-    </div>
-    <button type="button" (click)="goToListPost()" class="btn btn-primary">Retour au liste des pots</button>
-
+<div id="comment" style="height: auto; overflow-y: auto;">
+  <ul class="list-group" style="position: relative; ">
+    <li class="list-group-item" *ngFor="let comment of comments">
+      {{comment.content}}
+      <span class="text-right">
+        le <i class="text-info">{{comment.creationDate | date}}</i> par {{comment.author}}
+      </span>
+    </li>
+  </ul>
+</div>
+<div style="height: auto; overflow-y: auto;" *ngIf="postData.displayFields">
+    <input type="text" [(ngModel)]="comment.author" placeholder="Autheur" />
+    <br>
+    <textarea [(ngModel)]="comment.content" placeholder="Content"></textarea>
+    <br>
+    <button (click)="createComment()" class="btn btn-primary btn-sm">Submit</button>
+</div>

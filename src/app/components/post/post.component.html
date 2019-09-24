@@ -1,19 +1,26 @@
-<h1 class="my-4">Liste des posts
-  <small>listé a partir du backend api.</small>
-</h1>
+<div class="col-md-6">
 
-<!-- Blog Post -->
-<div style="height: auto; overflow-y: auto">
-  <div class="card mb-4" *ngFor="let post of posts">
-    <div class="card-body">
-      <h2 class="card-title">{{post.title}}</h2>
-      <p class="card-text">
-        {{post.content}}
-      </p>
-      <button (click)="goToCommentPage(post.id)" class="btn btn-primary">Voir commentaires </button>
-    </div>
-    <div class="card-footer text-muted">
-      Posté le {{post.creationDate | date}}
+  <div style="height: auto; overflow-y: auto">
+    <div class="card mb-4" *ngFor="let post of posts">
+      <div class="card-body">
+        <h2 class="card-title">{{post.title}}</h2>
+        <p class="card-text">
+          {{post.content}}
+        </p>
+      </div>
+      <div class="card-footer text-muted">
+        Posté le {{post.creationDate | date}}
+      </div>
+      <div>
+          <button (click)="getAllComments(post.id)" class="btn btn-primary btn-sm">Voir commentaires </button>
+          &nbsp;
+          <button (click)="setDisplayFields(post.id)" class="btn btn-primary btn-sm">Ajouter commentaire </button>
+      </div>
     </div>
   </div>
+</div>
+<div class="col-md-6">
+  <br><br><br><br>
+  <app-comment [comments]="comments" (createComment)="createComment($event)" [postData]="postData">
+  </app-comment>
 </div>
