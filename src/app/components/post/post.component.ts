@@ -53,7 +53,7 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   setDisplayFields(postId: number): void {
-    this.comments = [];
+    //this.comments = [];
     this.postData.postId = postId;
     this.postData.displayFields = true;
   }
